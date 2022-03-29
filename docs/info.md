@@ -20,3 +20,41 @@
 <br>
 <p>This game will be written in C++.</p>
 
+<em>(Design)</em>
+<br><br>
+&emsp;<span style="text-decoration: underline"><em>(General)</em></span>
+<em>
+<ol>
+<li>Display game title</li>
+<li>Display the following selection menu:<br>
+<ol>
+	<em><li><em>Play</em></li></em>
+	<em><li><em>Quit</em></li></em>
+</ol>
+<br>
+<li>Prompt user to select Play or Quit</li>
+<li>WHILE user did not select Quit:</li>
+<ul>
+<li>Run game</li>
+<li>Prompt user to play again:(1. Play, 2. Quit)</li>
+</ul>
+<li>End program</li>
+</ol>
+<br>
+&emsp;<span style="text-decoration: underline"><em>(Inside the game)</em></span>
+<ol>
+	<li>Declare game data:<br>
+	Player, WordList, Timer, score, letterCount, points</li>
+	<li>Fill word list</li>
+	<li>WHILE player has not lost(Timer = 0) or quit:</li>
+	<ul>
+		<li>Retrieve a word from the word list</li>
+		<li>Scramble word and give to player to solve</li>
+		<li>Set timer</li>
+		<li>Prompt player to solve(unscramble) and type correct word:</li>
+		<li>WHILE word is not solved:<br> > Prompt user to type again:</li>
+		<li>Calculate and give points</li>
+	</ul>
+	<li>End game</li>
+</ol>
+</em>

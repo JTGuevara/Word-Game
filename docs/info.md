@@ -1,5 +1,5 @@
 <h2>OVERVIEW</h2>
-<em>(Requirements)</em>
+<h3><em>(Requirements)</em></h3>
 <p>The game will contain the following components:</p>
 <ul>
 <li>Player - entity that represents a human player</li>
@@ -14,15 +14,11 @@
 <li>points - a specific word's point value</li>
 <li>letterCount - the amount of letters in each word used to calculate each word's point value</li>
 </ul>
-<p>Points for each word will be calculated as follows: <em>points = letterCount x 100 </em> </p>
-<br>
-<em>(Tools)</em>
-<br>
-<p>This game will be written in C++.</p>
-
-<em>(Design)</em>
-<br><br>
-&emsp;<span style="text-decoration: underline"><em>(General)</em></span>
+<p>Points for each word will be calculated as follows: <em>points = letterCount x 100 </em> </p><br>
+<h3><em>(Tools)</em></h3>
+<p>&emsp;This game will be written in C++.</p><br>
+<h3><em>(Design)</em></h3>
+&emsp;<em>(General)</em><br>&emsp;----------<br><br>
 <em>
 <ol>
 <li>Display game title</li>
@@ -31,7 +27,6 @@
 	<em><li><em>Play</em></li></em>
 	<em><li><em>Quit</em></li></em>
 </ol>
-<br>
 <li>Prompt user to select Play or Quit</li>
 <li>WHILE user did not select Quit:</li>
 <ul>
@@ -41,7 +36,7 @@
 <li>End program</li>
 </ol>
 <br>
-&emsp;<span style="text-decoration: underline"><em>(Inside the game)</em></span>
+&emsp;<em>(Inside the game)</em><br>&emsp;------------------<br><br>
 <ol>
 	<li>Declare game data:<br>
 	Player, WordList, Timer, score, letterCount, points</li>

@@ -4,6 +4,11 @@ DESCRIPTION: Word Game Application
 */
 #include <iostream>
 
+/*
+	DESCRIPTION: Runs the game. The game runs indefinitely until the player loses or quits.
+*/
+void startGame();
+
 int main(){
 	unsigned int choice;//choice used for user prompt
 	
@@ -22,7 +27,7 @@ int main(){
 	}
 
 	while(choice == 1){
-		std::cout << "Running game...";
+		startGame();
 		
 		std::cout << "Play again?\n";
 		std::cout << "\n   1. Play\n";
@@ -39,3 +44,5 @@ int main(){
 	std::cout << "\nEnding program...";
 	return 0;
 }
+
+#include "startGame.cpp"

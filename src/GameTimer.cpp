@@ -3,8 +3,6 @@ FILE: GameTimer.cpp
 DESCRIPTION: GameTimer function definitions.
 */
 
-#include "GameTimer.hpp"
-
 void GameTimer::startTimer(){
 		start = std::chrono::steady_clock::now();
 	}

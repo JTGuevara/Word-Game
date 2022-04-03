@@ -110,7 +110,7 @@ void startGame(){
 	   std::cout << "\n(List before retrieval)";
 	   for(auto it = WordList.begin();it != WordList.end();++it)
 		   std::cout << *it << " ";
-	   word = retrieveNextWord(WordList);
+	   word = retrieveNextWord(WordList, LIST_SIZE);
 	   std::cout << "\n(List after retrieval)";
 	   for(auto it = WordList.begin();it != WordList.end();++it)
 		   std::cout << *it << " ";
@@ -140,7 +140,7 @@ std::string scrambleWord(std::string word){
 
 std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE){
 	//check for a valid list
-	assert(LIST_SIZE >= 2 || !(WordList.empty());
+	assert(LIST_SIZE >= 2 || !WordList.empty());
 	
 	//To retrieve the next word, the following set of statements modify the list 
 	//such that it cycles forward

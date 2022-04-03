@@ -32,3 +32,5 @@ private:
 	std::chrono::time_point<std::chrono::steady_clock> end;		
 	std::chrono::duration<double> duration;						
 };
+
+#include "GameTimer.cpp"

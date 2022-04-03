@@ -28,13 +28,18 @@ void startGame(){
 	
     //Declare game data:
 		//Player, WordList, Timer, score, letterCount, points, etc.
+	struct Player{
+		std::size_t score;
+		std::string response;
+	};
+	Player player;
+	player.score = 0;
 	std::forward_list<std::string> WordList;
 	const std::size_t LIST_SIZE = 5;
 	std::string word;
 	std::string scrambledWord;
 	std::size_t points = 0;
 	GameTimer timer;
-	std::string playerResponse;
 	
     //Fill word list
 	{
@@ -62,7 +67,9 @@ void startGame(){
 		
 		file.close();
 	}
+	
     //WHILE player has not lost(Timer = 0) or quit:
+	while(timer.getDuration() < 10){
         //Retrieve a word from the word list
 		word = WordList.front();
         //Scramble word and give to player to solve
@@ -86,21 +93,22 @@ void startGame(){
 		std::cout << "\n\n\nPLAYER TEST\n----------------";
 		std::cout << "\nWord: " << scrambledWord; 
 		std::cout << "\nResponse: ";
-		std::cin >> playerResponse;
+		std::cin >> player.response;
 		
 		// WHILE word is not solved:
-		while(playerResponse != word){
+		while(player.response != word){
 			timer.tick();
 			//> Prompt user to type again:
 			std::cout << "\nNope! Try again!\n";
 			std::cout << "\nResponse: ";
-			std::cin >> playerResponse;
+			std::cin >> player.response;
 		}
        //Calculate and give points
 	   std::cout << "\n\nCorrect!\n";
-	   points += word.length() * 100;
+	   points = word.length() * 100;
+	   player.score += points;
 	   std::cout << "\n- - - - - - - -";
-	   std::cout << "\nScore: " << points << " pts"; 
+	   std::cout << "\nScore: " << player.score << " pts"; 
 	   std::cout << "\n- - - - - - - -";
 	   
 	   timer.endTimer();
@@ -116,7 +124,7 @@ void startGame(){
 		   std::cout << *it << " ";
 	   std::cout << "\nWord retrieved: " << word;
 	   timer.printTime();
-	
+	}
 	std::cout << "\nGame over!";
     //End game
 }

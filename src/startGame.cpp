@@ -7,7 +7,7 @@ DESCRIPTION: A function definition.
 #include <fstream> 			//C++ IO library for retrieving words from a file
 #include <algorithm> 		//For shuffling algorithm(std::shuffle) used to scramble words
 #include <random> 			//For random number generator(std::random_device) and number engine(std::mt19937) used in shuffling algorithm
-#include <cassert> 			//For testing preconditions.
+//#include <cassert>			//For testing preconditions
 
 #include "GameTimer.hpp"
 std::string scrambleWord(std::string word);
@@ -24,10 +24,7 @@ std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std
 
 
 void startGame(){
-	////////TO DO///////
-	
-    //Declare game data:
-		//Player, WordList, Timer, score, letterCount, points, etc.
+    //Game data
 	struct Player{
 		std::size_t score;
 		std::string response;
@@ -41,7 +38,7 @@ void startGame(){
 	std::size_t points = 0;
 	GameTimer timer;
 	
-    //Fill word list
+    //Set of statements to fill word list
 	{
 		//local variables used to read from a file
 		int i = 0;
@@ -61,49 +58,33 @@ void startGame(){
 		while(!file.eof()){
 			file >> wordsRead[i];
 			WordList.push_front(wordsRead[i]);
-			std::cout << "Word List Test: " << WordList.front() << "\n";
 			++i;
 		}
 		
 		file.close();
 	}
 	
-    //WHILE player has not lost(Timer = 0) or quit:
+	//Game loop
 	while(timer.getDuration() < 10){
-        //Retrieve a word from the word list
+		//Set of statements to scramble and supply a word for player to solve
 		word = WordList.front();
-        //Scramble word and give to player to solve
-		scrambledWord = word;
-		std::cout << "\n\nWORD SCRAMBLE TEST\n------------------";
-		std::cout << "\nWord before scramble: " << scrambledWord;
 		scrambledWord = scrambleWord(word);
-		std::cout << "\nWord after scramble: " << scrambledWord;
-	
-        //Set timer
-		std::cout << "\n\n\nTIMER TEST\n-----------";
-		timer.startTimer();
-		while(!timer.isUp(3)){
-			timer.tick();
-		}
-		timer.endTimer();
-		timer.printTime();
+		
 		timer.startTimer();
 		
-        //Prompt player to solve(unscramble) and type correct word:
-		std::cout << "\n\n\nPLAYER TEST\n----------------";
 		std::cout << "\nWord: " << scrambledWord; 
 		std::cout << "\nResponse: ";
 		std::cin >> player.response;
 		
-		// WHILE word is not solved:
+		//Player response loop to make sure the response is correct
 		while(player.response != word){
 			timer.tick();
-			//> Prompt user to type again:
 			std::cout << "\nNope! Try again!\n";
 			std::cout << "\nResponse: ";
 			std::cin >> player.response;
 		}
-       //Calculate and give points
+		
+	   //Set of statements executed when response is correct
 	   std::cout << "\n\nCorrect!\n";
 	   points = word.length() * 100;
 	   player.score += points;
@@ -112,17 +93,7 @@ void startGame(){
 	   std::cout << "\n- - - - - - - -";
 	   
 	   timer.endTimer();
-	   
-	   //Retrieve next word in the word list
-	   std::cout << "\n\nNEXT WORD RETRIEVAL TEST\n-------------------";
-	   std::cout << "\n(List before retrieval)";
-	   for(auto it = WordList.begin();it != WordList.end();++it)
-		   std::cout << *it << " ";
 	   word = retrieveNextWord(WordList, LIST_SIZE);
-	   std::cout << "\n(List after retrieval)";
-	   for(auto it = WordList.begin();it != WordList.end();++it)
-		   std::cout << *it << " ";
-	   std::cout << "\nWord retrieved: " << word;
 	   timer.printTime();
 	}
 	std::cout << "\nGame over!";
@@ -132,7 +103,7 @@ void startGame(){
 
 std::string scrambleWord(std::string word){
 	//check for valid word
-	assert(word.length() >= 2 || word != "");
+	//assert(word.length() >= 2 || word != "");
 	
 	std::string scrambledWord = word;
 	
@@ -148,7 +119,7 @@ std::string scrambleWord(std::string word){
 
 std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE){
 	//check for a valid list
-	assert(LIST_SIZE >= 2 || !WordList.empty());
+	//assert(LIST_SIZE >= 2 || !WordList.empty());
 	
 	//To retrieve the next word, the following set of statements modify the list 
 	//such that it cycles forward

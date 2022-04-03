@@ -14,6 +14,15 @@ std::string scrambleWord(std::string word);
 //Scrambles the given word and returns a copy. Returns an error if word is empty or less than 2 letters.
 
 
+std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE);
+/*Retrieves the next word in the given word list and returns it. The list is modified such that it cycles the list forward, with the word in the
+* front of the list pushed to the back and the next word in sequence becoming the new front. This function is intended to work with with lists 
+* no smaller than two words. Returns an error if the list is empty or has less than 2 words.
+* 		PARAMETERS: WordList - word list for modifying and retrieving next word
+*					LIST_SIZE - list size used to check for a valid list
+*/
+
+
 void startGame(){
 	////////TO DO///////
 	
@@ -95,11 +104,23 @@ void startGame(){
 	   std::cout << "\n- - - - - - - -";
 	   
 	   timer.endTimer();
+	   
+	   //Retrieve next word in the word list
+	   std::cout << "\n\nNEXT WORD RETRIEVAL TEST\n-------------------";
+	   std::cout << "\n(List before retrieval)";
+	   for(auto it = WordList.begin();it != WordList.end();++it)
+		   std::cout << *it << " ";
+	   word = retrieveNextWord(WordList);
+	   std::cout << "\n(List after retrieval)";
+	   for(auto it = WordList.begin();it != WordList.end();++it)
+		   std::cout << *it << " ";
+	   std::cout << "\nWord retrieved: " << word;
 	   timer.printTime();
 	
 	std::cout << "\nGame over!";
     //End game
 }
+
 
 std::string scrambleWord(std::string word){
 	//check for valid word
@@ -115,4 +136,20 @@ std::string scrambleWord(std::string word){
 	return scrambledWord;
 }
 
+
+
+std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE){
+	//check for a valid list
+	assert(LIST_SIZE >= 2 || !(WordList.empty());
+	
+	//To retrieve the next word, the following set of statements modify the list 
+	//such that it cycles forward
+	std::string tempFront = WordList.front();
+	WordList.pop_front();
+	WordList.reverse();
+	WordList.push_front(tempFront);
+	WordList.reverse();
+	
+	return WordList.front();
+}
 

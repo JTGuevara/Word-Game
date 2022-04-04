@@ -7,7 +7,7 @@ DESCRIPTION: A function definition.
 #include <fstream> 			//C++ IO library for retrieving words from a file
 #include <algorithm> 		//For shuffling algorithm(std::shuffle) used to scramble words
 #include <random> 			//For random number generator(std::random_device) and number engine(std::mt19937) used in shuffling algorithm
-//#include <cassert>			//For testing preconditions
+#include <cassert>			//For testing preconditions
 
 #include "GameTimer.hpp"
 std::string scrambleWord(std::string word);
@@ -32,7 +32,7 @@ void startGame(){
 	Player player;
 	player.score = 0;
 	std::forward_list<std::string> WordList;
-	const std::size_t LIST_SIZE = 5;
+	const std::size_t LIST_SIZE = 7;
 	std::string word;
 	std::string scrambledWord;
 	std::size_t points = 0;
@@ -45,13 +45,17 @@ void startGame(){
 		std::string wordsRead[LIST_SIZE];
 		std::ifstream file;
 		
-		//file directory - make sure to change this if the file is moved!
-		file.open("../words/word_directory.txt");
-		
-		//check for potential errors in opening file
-		if(file.fail()){
-			std::cout << "Error in opening file!\n";
-			exit;
+		try{
+			//file directory - make sure to change this if the file is moved!
+			file.open("../words/word_directory.txt");
+			//check for potential errors in opening file
+			if(file.fail()){
+				throw std::exception();
+			}
+		}
+		catch(std::exception &e){
+			std::cout << "Error: Could not open file!\n";
+			exit(1);
 		}
 		
 		//while loop to read each word from the file and add it to the word list
@@ -103,7 +107,8 @@ void startGame(){
 
 std::string scrambleWord(std::string word){
 	//check for valid word
-	//assert(word.length() >= 2 || word != "");
+	assert(word != "");
+	assert(word.length() >= 2);
 	
 	std::string scrambledWord = word;
 	
@@ -119,7 +124,8 @@ std::string scrambleWord(std::string word){
 
 std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE){
 	//check for a valid list
-	//assert(LIST_SIZE >= 2 || !WordList.empty());
+	assert(!WordList.empty());
+	assert(LIST_SIZE >= 2);
 	
 	//To retrieve the next word, the following set of statements modify the list 
 	//such that it cycles forward

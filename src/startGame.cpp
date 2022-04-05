@@ -68,7 +68,7 @@ void startGame(){
 		file.close();
 	}
 	
-	//Game loop
+	//Game loop(where 10 = number of seconds)
 	while(timer.getDuration() < 10){
 		//Set of statements to scramble and supply a word for player to solve
 		word = WordList.front();
@@ -76,32 +76,49 @@ void startGame(){
 		
 		timer.startTimer();
 		
-		std::cout << "\nWord: " << scrambledWord; 
-		std::cout << "\nResponse: ";
+		std::cout << "\n\n\tWord: " << scrambledWord; 
+		std::cout << "\n\tResponse: ";
 		std::cin >> player.response;
 		
 		//Player response loop to make sure the response is correct
 		while(player.response != word){
 			timer.tick();
 			std::cout << "\nNope! Try again!\n";
-			std::cout << "\nResponse: ";
+			std::cout << "\n\tWord: " << scrambledWord;
+			std::cout << "\n\tResponse: ";
 			std::cin >> player.response;
 		}
 		
-	   //Set of statements executed when response is correct
+	   //Set of statements executed when response is correct 
+	   timer.endTimer();
 	   std::cout << "\n\nCorrect!\n";
 	   points = word.length() * 100;
 	   player.score += points;
 	   std::cout << "\n- - - - - - - -";
 	   std::cout << "\nScore: " << player.score << " pts"; 
 	   std::cout << "\n- - - - - - - -";
-	   
-	   timer.endTimer();
-	   word = retrieveNextWord(WordList, LIST_SIZE);
 	   timer.printTime();
+	   std::cout << "\n- - - - - - - -\n";
+	   word = retrieveNextWord(WordList, LIST_SIZE);
+	   
 	}
-	std::cout << "\nGame over!";
-    //End game
+	
+	//Statements executed on player defeat
+	std::cout << "\n\nTime's up!";
+	std::cout << "\n- - - - - - - - - - -";
+	std::cout << "\nTotal Score: " << player.score << " pts"; 
+	std::cout << "\n- - - - - - - - - - -";
+	timer.printTime();
+	std::cout << "\n- - - - - - - - - - -";
+	
+	//Slight time delay until game over message
+	timer.reset();
+	timer.startTimer();
+	while(timer.getDuration() < 3){
+		timer.tick();
+	}
+	timer.endTimer();
+	std::cout << "\n\tGame over! ";
 }
 
 

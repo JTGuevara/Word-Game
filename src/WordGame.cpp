@@ -12,12 +12,12 @@ void startGame();
 int main(){
 	unsigned int choice;//choice used for user prompt
 	
-	std::cout << "-------------------------\n";
-	std::cout << "\tWORD GAME\n";
-	std::cout << "-------------------------\n";
-	std::cout << "\nWelcome to Word Game! Type 1 or 2 to continue: ";
-	std::cout << "\n   1. Play\n";
-	std::cout << "   2. Quit\n";
+	std::cout << "\t* * * * * * * * * * * * * *\n";
+	std::cout << "\t*\tWORD BLAST\t  *\n";
+	std::cout << "\t* * * * * * * * * * * * * *\n";
+	std::cout << "\n    Welcome to Word Blast! Type 1 or 2 to continue: ";
+	std::cout << "\n\t   1. Play\n";
+	std::cout << "\t   2. Quit\n";
 	
 	std::cin >> choice;
 	//while loop to check for valid input
@@ -30,9 +30,9 @@ int main(){
 		startGame();
 		
 		std::cout << "Play again?\n";
-		std::cout << "\n   1. Play\n";
-		std::cout << "   2. Quit\n";
-		std::cout << "Type 1 or 2 to continue: ";
+		std::cout << "\n\t   1. Play\n";
+		std::cout << "\t   2. Quit\n";
+		std::cout << "\tType 1 or 2 to continue: ";
 		std::cin >> choice;
 		
 		//while loop to check for valid input
@@ -41,7 +41,7 @@ int main(){
 			std::cin >> choice;
 		}
 	}
-	std::cout << "\nEnding program...";
+	std::cout << "\nThanks for playing!";
 	return 0;
 }
 

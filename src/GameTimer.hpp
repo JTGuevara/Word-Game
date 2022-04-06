@@ -9,7 +9,8 @@ MEMBER FUNCTIONS:
 								change in time from the timer's start to the current tick.
 	void endTimer()				Ends the timer. Records the point in time at the timer's end and the timer's total duration.
 	void printTime()			Prints the timer's current duration.
-	bool isUp(double seconds)	Returns false if the timer duration is less than the given number of seconds and true otherwise.	
+	bool isUp(double seconds)	Returns false if the timer duration is less than the given number of seconds and true otherwise.
+	void reset()				Resets timer by setting timer duration to 0.
 	double getDuration()		Returns timer's current duration.
 */
 
@@ -24,6 +25,7 @@ public:
 	void printTime();
 	void endTimer();
 	bool isUp(double);
+	void reset(){duration = std::chrono::steady_clock::now() - std::chrono::steady_clock::now();}
 	double getDuration(){return duration.count();}
 	
 private:

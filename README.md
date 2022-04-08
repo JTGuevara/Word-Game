@@ -7,7 +7,7 @@ A word game developed in C++.
   total accumulated amount of points.</p>
 
 <h2>SETUP</h2>
-<p>The game uses C++ libraries from C++11 and later, so make sure those are supported by your development tool or environment. 
+<p>The game uses C++ libraries from C++11 and later, so make sure those are supported by your development toolkit or environment. 
   Source files are located in the project's /src/ directory.</p> 
 <p>If building from the command-line, navigate to the game's /src/ directory and compile only WordGame.cpp. (Include directives are already
   set.)</p>

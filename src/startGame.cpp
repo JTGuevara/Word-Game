@@ -12,25 +12,29 @@ DESCRIPTION: A function definition.
 #include "GameTimer.hpp"	
 
 
-void fillWordList(std::forward_list<std::string> &WordList,const std::size_t &LIST_SIZE);
+void fillWordList(std::forward_list<std::string> &WordList);
 /*	Fills the given word list with words retrieved from a file.
 *		PARAMETERS: WordList - word list to modify
-*					LIST_SIZE - specified size for filling a word list
 *		THROWS: Exception if a file is not found in the given directory.
 */
 
+std::size_t calculateListSize(std::forward_list<std::string> &WordList);
+/* Calculates and returns the size of the given word list.
+*		PARAMETERS: WordList - word list to traverse
+*/
+
 std::string scrambleWord(std::string word);
-/* 	Scrambles the given word and returns a copy. Returns an error if word is empty or less than 2 letters.
+/* Scrambles the given word and returns a copy. Returns an error if word is empty or less than 2 letters.
 *		PARAMETERS: word - word to scramble
 */
 
 
-std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE);
+std::string retrieveNextWord(std::forward_list<std::string> &WordList, std::size_t &listSize);
 /* 	Retrieves the next word in the given word list and returns it. The list is modified such that it cycles the list forward, 
 *	with the word in the front of the list pushed to the back and the next word in sequence becoming the new front. This function 
 *	is intended to work with with lists no smaller than two words. Returns an error if the list is empty or has less than 2 words.
 * 		PARAMETERS: WordList - word list for modifying and retrieving next word
-*					LIST_SIZE - list size used to check for a valid list
+*					listSize - list size used to check for a valid list
 */
 
 
@@ -43,13 +47,15 @@ void startGame(){
 	Player player;
 	player.score = 0;
 	std::forward_list<std::string> WordList;
-	const std::size_t LIST_SIZE = 7;
+	std::size_t listSize = 0;
 	std::string word;
 	std::string scrambledWord;
 	std::size_t points = 0;
 	GameTimer timer;
 	
-	fillWordList(WordList, LIST_SIZE);
+	fillWordList(WordList);
+	
+	listSize = calculateListSize(WordList);
 	
 	//Game loop(where 10 = number of seconds)
 	while(timer.getDuration() < 10){
@@ -82,7 +88,7 @@ void startGame(){
 	   std::cout << "\n- - - - - - - -";
 	   timer.printTime();
 	   std::cout << "\n- - - - - - - -\n";
-	   word = retrieveNextWord(WordList, LIST_SIZE);
+	   word = retrieveNextWord(WordList, listSize);
 	   
 	}
 	
@@ -106,10 +112,9 @@ void startGame(){
 }
 
 
-void fillWordList(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE){
+void fillWordList(std::forward_list<std::string> &WordList){
 	//local variables used to read from a file
-	int i = 0;
-	std::string wordsRead[LIST_SIZE];
+	std::string wordRead;
 	std::ifstream file;
 	
 	//try-catch statement to attempt to open a file
@@ -128,13 +133,26 @@ void fillWordList(std::forward_list<std::string> &WordList, const std::size_t &L
 		
 	//while loop to read each word from the file and add it to the word list
 	while(!file.eof()){
-		file >> wordsRead[i];
-		WordList.push_front(wordsRead[i]);
-		++i;
+		file >> wordRead;
+		WordList.push_front(wordRead);
 	}
 		
 	file.close();
 }
+
+
+
+std::size_t calculateListSize(std::forward_list<std::string> &WordList){
+	std::size_t size = 0;//size to return
+	std::forward_list<std::string>::iterator it;//iterator to traverse a list
+	
+	//to calculate the list size, the list is traversed
+	for(it = WordList.begin();it != WordList.end();++it)
+		++size;
+	
+	return size;
+}
+
 
 
 std::string scrambleWord(std::string word){
@@ -154,10 +172,10 @@ std::string scrambleWord(std::string word){
 
 
 
-std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE){
+std::string retrieveNextWord(std::forward_list<std::string> &WordList, std::size_t &listSize){
 	//check for a valid list
 	//assert(!WordList.empty());
-	//assert(LIST_SIZE >= 2);
+	//assert(listSize >= 2);
 	
 	//To retrieve the next word in the list, the following set of statements modify the list 
 	//such that it cycles forward one position. 

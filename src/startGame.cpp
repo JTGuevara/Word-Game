@@ -9,15 +9,26 @@ DESCRIPTION: A function definition.
 #include <random> 			//For random number generator(std::random_device) and number engine(std::mt19937) used in shuffling algorithm
 #include <cassert>			//For testing preconditions
 
-#include "GameTimer.hpp"
+#include "GameTimer.hpp"	
+
+
+void fillWordList(std::forward_list<std::string> &WordList,const std::size_t &LIST_SIZE);
+/*	Fills the given word list with words retrieved from a file.
+*		PARAMETERS: WordList - word list to modify
+*					LIST_SIZE - specified size for filling a word list
+*		THROWS: Exception if a file is not found in the given directory.
+*/
+
 std::string scrambleWord(std::string word);
-//Scrambles the given word and returns a copy. Returns an error if word is empty or less than 2 letters.
+/* 	Scrambles the given word and returns a copy. Returns an error if word is empty or less than 2 letters.
+*		PARAMETERS: word - word to scramble
+*/
 
 
 std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE);
-/*Retrieves the next word in the given word list and returns it. The list is modified such that it cycles the list forward, with the word in the
-* front of the list pushed to the back and the next word in sequence becoming the new front. This function is intended to work with with lists 
-* no smaller than two words. Returns an error if the list is empty or has less than 2 words.
+/* 	Retrieves the next word in the given word list and returns it. The list is modified such that it cycles the list forward, 
+*	with the word in the front of the list pushed to the back and the next word in sequence becoming the new front. This function 
+*	is intended to work with with lists no smaller than two words. Returns an error if the list is empty or has less than 2 words.
 * 		PARAMETERS: WordList - word list for modifying and retrieving next word
 *					LIST_SIZE - list size used to check for a valid list
 */
@@ -38,35 +49,7 @@ void startGame(){
 	std::size_t points = 0;
 	GameTimer timer;
 	
-    //Set of statements to fill word list
-	{
-		//local variables used to read from a file
-		int i = 0;
-		std::string wordsRead[LIST_SIZE];
-		std::ifstream file;
-		
-		try{
-			//file directory - make sure to change this if the file is moved!
-			file.open("../words/word_directory.txt");
-			//check for potential errors in opening file
-			if(file.fail()){
-				throw std::exception();
-			}
-		}
-		catch(std::exception &e){
-			std::cout << "Error: Could not open file!\n";
-			exit(1);
-		}
-		
-		//while loop to read each word from the file and add it to the word list
-		while(!file.eof()){
-			file >> wordsRead[i];
-			WordList.push_front(wordsRead[i]);
-			++i;
-		}
-		
-		file.close();
-	}
+	fillWordList(WordList, LIST_SIZE);
 	
 	//Game loop(where 10 = number of seconds)
 	while(timer.getDuration() < 10){
@@ -111,7 +94,8 @@ void startGame(){
 	timer.printTime();
 	std::cout << "\n- - - - - - - - - - -";
 	
-	//Slight time delay until game over message
+	//Slight time delay until game over message so player has
+	//time to process in-game results
 	timer.reset();
 	timer.startTimer();
 	while(timer.getDuration() < 3){
@@ -119,6 +103,37 @@ void startGame(){
 	}
 	timer.endTimer();
 	std::cout << "\n\tGame over! ";
+}
+
+
+void fillWordList(std::forward_list<std::string> &WordList, const std::size_t &LIST_SIZE){
+	//local variables used to read from a file
+	int i = 0;
+	std::string wordsRead[LIST_SIZE];
+	std::ifstream file;
+	
+	//try-catch statement to attempt to open a file
+	try{
+		//file directory - make sure to change this if the file is moved!
+		file.open("../words/word_directory.txt");
+		//check for potential errors in opening file
+		if(file.fail()){
+			throw std::exception();
+		}
+	}
+	catch(std::exception &e){
+		std::cout << "Error: Could not open file!\n";
+		exit(1);
+	}
+		
+	//while loop to read each word from the file and add it to the word list
+	while(!file.eof()){
+		file >> wordsRead[i];
+		WordList.push_front(wordsRead[i]);
+		++i;
+	}
+		
+	file.close();
 }
 
 
@@ -144,8 +159,8 @@ std::string retrieveNextWord(std::forward_list<std::string> &WordList, const std
 	//assert(!WordList.empty());
 	//assert(LIST_SIZE >= 2);
 	
-	//To retrieve the next word, the following set of statements modify the list 
-	//such that it cycles forward
+	//To retrieve the next word in the list, the following set of statements modify the list 
+	//such that it cycles forward one position. 
 	std::string tempFront = WordList.front();
 	WordList.pop_front();
 	WordList.reverse();

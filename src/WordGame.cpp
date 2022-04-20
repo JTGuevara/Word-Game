@@ -4,9 +4,7 @@ DESCRIPTION: Word Game Application
 */
 #include <iostream>
 
-/*
-	DESCRIPTION: Runs the game. The game runs indefinitely until the player loses or quits.
-*/
+//void startGame - Runs the game. The game runs indefinitely until the player loses or quits.
 void startGame();
 
 int main(){
@@ -45,4 +43,5 @@ int main(){
 	return 0;
 }
 
-#include "startGame.cpp"
+
+

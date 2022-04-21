@@ -57,6 +57,16 @@ void startGame(){
 	
 	listSize = calculateListSize(WordList);
 	
+	//Short time delay for game intro
+	std::cout << "\n\n- - - - - - - - - START GAME- - - - - - - - - -";
+	std::cout << "\n- - - - - - - - - - - - - - - - - - - - - - - -";
+	std::cout << "\nUnscramble each word! Type your response below.";
+	std::cout << "\n\t  (Type 'q' to quit game)";
+	timer.startTimer();
+	while(timer.getDuration() < 2.7)
+		timer.tick();
+	timer.endTimer();
+	
 	//Game loop(where 10 = number of seconds)
 	while(timer.getDuration() < 10){
 		//Set of statements to scramble and supply a word for player to solve
@@ -71,6 +81,10 @@ void startGame(){
 		
 		//Player response loop to make sure the response is correct
 		while(player.response != word){
+			//If statement for player to quit and return to main menu
+			if(player.response == "q" || "Q")
+				return;
+			
 			timer.tick();
 			std::cout << "\nNope! Try again!\n";
 			std::cout << "\n\tWord: " << scrambledWord;

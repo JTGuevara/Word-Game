@@ -10,10 +10,11 @@ void startGame();
 int main(){
 	unsigned int choice;//choice used for user prompt
 	
+	std::cout << "\n";
 	std::cout << "\t* * * * * * * * * * * * * *\n";
 	std::cout << "\t*\tWORD BLAST\t  *\n";
 	std::cout << "\t* * * * * * * * * * * * * *\n";
-	std::cout << "\n    Welcome to Word Blast! Type 1 or 2 to continue: ";
+	std::cout << "\nWelcome to Word Blast! Type 1 or 2 to continue: ";
 	std::cout << "\n\t   1. Play\n";
 	std::cout << "\t   2. Quit\n";
 	
